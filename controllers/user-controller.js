@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const speakeasy = require("speakeasy");
 const { v4: uuidv4 } = require("uuid");
