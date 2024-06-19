@@ -5,12 +5,12 @@ const cors = require("cors");
 
 // chat
 const http = require("http");
-const socketIo = require("socket.io");
+const { Server } = require("socket.io");
 
 require("dotenv").config();
 const corsOptions = {
   origin: "*",
-  credentials: true, //access-control-allow-credentials:true
+
   optionSuccessStatus: 200,
 };
 const app = express();
@@ -54,7 +54,7 @@ console.log("Hello world");
 //chat
 app.use("/api/chat", chatRouter);
 const server = http.createServer(app);
-const io = socketIo(server, {
+const io = new Server(server, {
   cors: {
     origin: "*", // Allow requests from this origin
   },
