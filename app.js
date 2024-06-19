@@ -56,7 +56,7 @@ app.use("/api/chat", chatRouter);
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000", // Allow requests from this origin
+    origin: "*", // Allow requests from this origin
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization"],
     credentials: true,
