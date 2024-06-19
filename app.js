@@ -57,10 +57,8 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "*", // Allow requests from this origin
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Authorization"],
-    credentials: true,
   },
+  transports: ["polling"],
 });
 
 io.on("connection", (socket) => {
