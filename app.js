@@ -9,9 +9,13 @@ const { Server } = require("socket.io");
 
 require("dotenv").config();
 const corsOptions = {
-  origin: "*",
-
-  optionSuccessStatus: 200,
+  origin: [
+    "http://localhost:3000",
+    "https://portfolio-frontend-brown-eight.vercel.app",
+  ], // Replace with your actual frontend domain
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Authorization", "Content-Type"],
+  credentials: true,
 };
 const app = express();
 app.use(express.json());
@@ -48,7 +52,7 @@ app.use("/api/resume", resumeRouter);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const url = process.env.MONGO_DB;
-const port = "8080";
+const port = process.env.PORT || "8080";
 console.log("Hello world");
 
 //chat
@@ -56,7 +60,13 @@ app.use("/api/chat", chatRouter);
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // Allow requests from this origin
+    origin: [
+      "http://localhost:3000",
+      "https://portfolio-frontend-brown-eight.vercel.app",
+    ], // Replace with your actual frontend domain
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Authorization", "Content-Type"],
+    credentials: true,
   },
   transports: ["polling"],
 });
