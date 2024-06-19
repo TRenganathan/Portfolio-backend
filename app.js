@@ -13,7 +13,7 @@ const corsOptions = {
     "http://localhost:3000",
     "https://portfolio-frontend-brown-eight.vercel.app",
   ], // Replace with your actual frontend domain
-  methods: ["GET", "POST"],
+  // methods: ["GET", "POST"],
   allowedHeaders: ["Authorization", "Content-Type"],
   credentials: true,
 };
@@ -52,7 +52,7 @@ app.use("/api/resume", resumeRouter);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const url = process.env.MONGO_DB;
-const port = process.env.PORT || "8080";
+const port = "8080";
 console.log("Hello world");
 
 //chat
@@ -64,7 +64,7 @@ const io = new Server(server, {
       "http://localhost:3000",
       "https://portfolio-frontend-brown-eight.vercel.app",
     ], // Replace with your actual frontend domain
-    methods: ["GET", "POST"],
+    // methods: ["GET", "POST"],
     allowedHeaders: ["Authorization", "Content-Type"],
     credentials: true,
   },
