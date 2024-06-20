@@ -72,11 +72,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("New Client connected");
+  // console.log("New Client connected");
 
   socket.on("join", ({ userId, chatroomId }) => {
     socket.join(chatroomId);
-    console.log(`${userId} joined chatroom ${chatroomId}`);
+    // console.log(`${userId} joined chatroom ${chatroomId}`);
   });
   socket.on("message", async ({ chatroomId, message }) => {
     io.to(chatroomId).emit("message", message);
@@ -95,6 +95,21 @@ io.on("connection", (socket) => {
       message,
     });
   });
+  // WebRTC signaling
+  socket.on("call-user", (data) => {
+    console.log(`Calling user ${data.userToCall} from ${data.from}`);
+    io.to(data.userToCall).emit("call-user", {
+      signal: data.signal,
+      from: data.from,
+      isVideoCall: data.isVideoCall,
+    });
+  });
+
+  socket.on("answer-call", (data) => {
+    console.log(`Answering call from ${data.to}`);
+    io.to(data.to).emit("call-accepted", data.signal);
+  });
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
